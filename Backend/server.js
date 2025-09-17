@@ -3,27 +3,24 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+require("dotenv").config(); // Loads .env file variables
 
-const User = require("./models/User");
+const User = require("./models/User"); // Correctly imports your User model
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY; // Loads from .env
 
-app.use(cors({
-  origin: ["https://store-fawn.vercel.app"], // your Vercel frontend
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+// MongoDB Connection (loads from .env)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error(err));
+  .catch((err) => console.log(err));
 
-// JWT middleware
+// Middleware: Verify JWT
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader) return res.status(401).json({ msg: "No token provided" });
@@ -82,7 +79,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Get current user
+// Get current user info
 app.get("/me", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select("-password");
@@ -94,7 +91,7 @@ app.get("/me", authMiddleware, async (req, res) => {
   }
 });
 
-// Toggle Cart
+// Add/Remove (Toggle) from Cart
 app.post("/cart", authMiddleware, async (req, res) => {
   try {
     const { product } = req.body;
@@ -102,6 +99,7 @@ app.post("/cart", authMiddleware, async (req, res) => {
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     const exists = user.cart.some((p) => p.name === product.name);
+    
     if (exists) {
       user.cart = user.cart.filter((p) => p.name !== product.name);
     } else {
@@ -109,7 +107,7 @@ app.post("/cart", authMiddleware, async (req, res) => {
     }
 
     await user.save();
-    res.json(user.cart);
+    res.json(user.cart); 
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server error" });
@@ -128,7 +126,7 @@ app.get("/cart", authMiddleware, async (req, res) => {
   }
 });
 
-// Toggle Favourites
+// Add/Remove (Toggle) from Favourites
 app.post("/favourites", authMiddleware, async (req, res) => {
   try {
     const { product } = req.body;
@@ -136,6 +134,7 @@ app.post("/favourites", authMiddleware, async (req, res) => {
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     const exists = user.favourites.some((p) => p.name === product.name);
+    
     if (exists) {
       user.favourites = user.favourites.filter((p) => p.name !== product.name);
     } else {
@@ -162,5 +161,7 @@ app.get("/favourites", authMiddleware, async (req, res) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+// Start the server
+app.listen(PORT, () =>
+  console.log(`✅ Server running on http://localhost:${PORT}`)
+);
