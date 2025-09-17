@@ -26,7 +26,7 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isFavOpen, setIsFavOpen] = useState(false);
 
-  const API = "http://localhost:5000"; // Your backend server
+  const API = "https://usha-store.onrender.com"; // Your backend server
 
   // This will run when the app first loads OR when isAuthenticated changes
   useEffect(() => {
