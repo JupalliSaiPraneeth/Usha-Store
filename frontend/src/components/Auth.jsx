@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Auth = ({ setIsAuthenticated }) => {
+const API = "https://usha-store.onrender.com"; // 🔹 use your deployed backend
+
+const Auth = ({ setIsAuthenticated, setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
@@ -17,17 +19,21 @@ const Auth = ({ setIsAuthenticated }) => {
     try {
       if (isLogin) {
         // 🔹 LOGIN
-        const res = await axios.post("https://usha-store.onrender.com", form);
+        const res = await axios.post(`${API}/login`, form);
+
         localStorage.setItem("token", res.data.token); // save token
         localStorage.setItem("user", JSON.stringify(res.data.user)); // save user info
+
         setIsAuthenticated(true); // open main page
+        setUser(res.data.user);   // update app state
       } else {
         // 🔹 SIGNUP
-        const res = await axios.post("http://localhost:5000/signup", form);
+        const res = await axios.post(`${API}/signup`, form);
         setMessage(res.data.msg);
         setIsLogin(true); // switch to login after signup
       }
     } catch (err) {
+      console.error("Auth error:", err.response?.data || err.message);
       setMessage(err.response?.data?.msg || "Error occurred");
     }
   };
@@ -88,7 +94,7 @@ const Auth = ({ setIsAuthenticated }) => {
   );
 };
 
-// ✅ Inline styles (you can move this to CSS if you want)
+// ✅ Inline styles
 const styles = {
   container: {
     maxWidth: "400px",
