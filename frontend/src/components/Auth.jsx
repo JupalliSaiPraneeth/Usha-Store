@@ -17,7 +17,7 @@ const Auth = ({ setIsAuthenticated }) => {
     try {
       if (isLogin) {
         // 🔹 LOGIN
-        const res = await axios.post("http://localhost:5000/login", form);
+        const res = await axios.post("https://usha-store.onrender.com", form);
         localStorage.setItem("token", res.data.token); // save token
         localStorage.setItem("user", JSON.stringify(res.data.user)); // save user info
         setIsAuthenticated(true); // open main page
