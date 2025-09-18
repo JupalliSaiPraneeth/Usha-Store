@@ -1023,7 +1023,7 @@ hr{
 .mobile-menu .close-btn {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 25%;
   background: none;
   border: none;
   font-size: 2rem;
