@@ -14,7 +14,7 @@ html{
 body {
   background-color: #fff; /* This sets the whole page to a light gray */
   color: #333; /* This makes the default text dark gray */
-  width: 100%;
+  /* width: 100%; */
   
 }
 
@@ -208,7 +208,7 @@ nav ul a:hover{
 
 .slider {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 500px;
   overflow: hidden;
   display: flex;
@@ -257,7 +257,7 @@ nav ul a:hover{
    grid-template-columns: repeat(4, 1fr);
    margin: 1rem;
    gap: 0.5rem;
-   width: 100vw;
+   width: 100%;
 }
 .Product-image{
     height: 15vh;
@@ -318,7 +318,7 @@ nav ul a:hover{
    grid-template-columns: repeat(3, 1fr);
    margin: 1rem;
    gap: 0.5rem;
-   width: 100vw;
+   width: 100%;
 }
 .ref-image{
   height: 20vh;
@@ -341,7 +341,7 @@ nav ul a:hover{
    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 
             0 1px 2px rgba(0,0,0,0.24);
   padding: 1rem;
-  width: 98vw;
+  width: 98%;
 }
 .laptop-layer{
    display: grid;
@@ -364,7 +364,7 @@ nav ul a:hover{
   font-family: "Bungee", sans-serif ;
 }
 .lapy-image{
-  height: 15vh;
+  height: 25vh;
 }
 .lapy-info{
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -381,7 +381,7 @@ hr{
   
 }
 .lapy-d-image{
-  height: 17.5vh;
+  height: 27.5vh;
 }
 .lapy:hover{
   transform: translateY(-10px);
@@ -407,6 +407,7 @@ hr{
 .lapy {
   position: relative;
   cursor: pointer;
+  height: 40vh;
 }
 
 .lapy-actions {
@@ -417,17 +418,19 @@ hr{
   gap: 8px;
 }
 
-.plus-btn, .fav-btn {
-  background: white;
-  border-radius: 50%;
-  padding: 6px;
-  font-size: 1.2rem;
+/* .add-btn, .fav-btn {
+  background-color: #28a745; 
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 100%;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s;
-}
+  transition: 0.3s ease;
+  font-size: 14px;
+  
+} */
 
-.plus-btn:hover {
+.add-btn:hover {
   background: dodgerblue;
   color: white;
   transform: scale(1.1);
@@ -446,7 +449,7 @@ hr{
    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 
             0 1px 2px rgba(0,0,0,0.24);
   padding: 1rem;
-  width: 98vw;
+  width: 100%;
 }
 .woofers-layer{
      display: grid;
@@ -783,12 +786,26 @@ hr{
     font-size: 1rem;
   }
 }
+/* ---------------Auth */
 
 
 /* 🔹 MOBILE RESPONSIVE (≤480px) */
 @media (max-width: 480px) {
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin-right: 0;
+    
+}
   body {
     font-size: 14px;
+    background-color:#fff;
+    
+    
+  }
+  body{
+    /* overflow: hidden; */
   }
 
   /* Header */
@@ -796,11 +813,13 @@ hr{
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
+    width: 98vw;
   }
 
   .logo {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
+    margin: 1rem;
   }
 
   .search-box {
@@ -820,6 +839,7 @@ hr{
   /* Slider */
   .slider {
     height: 220px;
+    width: 100vw;
   }
 
   .arrow {
@@ -829,37 +849,82 @@ hr{
 
   /* Products (grid → 2 per row) */
   .products-box {
-    grid-template-columns: repeat(2, 1fr);
+      display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   gap: 1rem;
+   /* margin: 1rem; */
+   width: 98vw;
   }
   .Product-image {
-    height: 12vh;
+    height: 8vh;
   }
-
+ 
+.box{
+    display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 1rem;
+   /* margin: 1rem; */
+   width: 98vw;
+}
+.off-image{
+  height: 4.5vh;
+}
+.off-jpg-image{
+  height: 7vh;
+}
   .products2-box {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
-
+  .ref-image{
+    height: 10vh;
+  }
+  .ac-image{
+    height: 5vh;
+  }
+  
+  .co-image{
+    height: 10vh;
+  }
+  .laptop-container{
+    width: 100%;
+  overflow-x: auto;      /* enable horizontal scroll */
+  padding: 20px;
+  width: 96vw;
+  }
   /* Electronics (Laptops grid → 1 per row) */
   .laptop-layer {
-    grid-template-columns: 1fr;
+    display: flex;
+  gap: 1rem;
   }
 
   .lapy {
     padding: 0.5rem;
+    height: 17vh;
+    
   }
 
   .lapy-image {
     height: 120px;
   }
+  .woofers-container{
+    width: 100%;
+  overflow-x: auto;      /* enable horizontal scroll */
+  padding: 20px;
+  width: 100vw;
+  }
 
   /* Woofers grid → 2 per row */
   .woofers-layer {
     grid-template-columns: repeat(2, 1fr);
+    
+    
   }
 
   .speak {
     height: auto;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
+    
+    width: 40vw;
   }
 
   .speak-image {
@@ -915,3 +980,83 @@ hr{
     font-size: 0.8rem;
   }
 }
+
+
+
+
+
+
+
+
+
+/* Desktop nav */
+.desktop-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Hide hamburger on desktop */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: dodgerblue;
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f8f9fa;
+  z-index: 2000;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-menu .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #c82333;
+}
+
+.mobile-menu ul a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logout-btn {
+  margin-top: auto;
+  padding: 10px;
+  background: crimson;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
