@@ -1041,7 +1041,7 @@ hr{
 }
 
 .logout-btn {
-  margin-top: auto;
+  margin-top: 0;
   padding: 10px;
   background: crimson;
   border: none;
