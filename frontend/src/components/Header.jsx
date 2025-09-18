@@ -18,11 +18,11 @@ const Header = ({
   favCount,
   onCartClick,
   onFavClick,
-  setUser, // ✅ added so handleLogout clears App state
+  setUser,
 }) => {
   const [showFull, setShowFull] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // ✅ mobile toggle
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef();
 
   // Animate logo
@@ -43,11 +43,20 @@ const Header = ({
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [menuOpen]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsAuthenticated(false);
-    if (setUser) setUser(null); // ✅ clear user in App state
+    if (setUser) setUser(null);
   };
 
   return (
@@ -70,50 +79,28 @@ const Header = ({
           <FaSearch className="search-icon" />
         </div>
 
-        {/* 🔹 Mobile toggle button */}
+        {/* 🔹 Hamburger (mobile only) */}
         <button
           className="menu-toggle"
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => setMenuOpen(true)}
         >
-          {menuOpen ? <FaTimes /> : <FaBars />}
+          <FaBars />
         </button>
 
-        {/* Nav links */}
-        <nav className={menuOpen ? "nav-open" : ""}>
+        {/* 🔹 Desktop Nav */}
+        <nav className="desktop-nav">
+          <ul><a href="#"><FaHome /> Home</a></ul>
+          <ul><a href="#"><FaStar /> Best Selling</a></ul>
           <ul>
-            <a href="#">
-              <FaHome /> Home
-            </a>
-          </ul>
-          <ul>
-            <a href="#">
-              <FaStar /> Best Selling
-            </a>
-          </ul>
-          <ul>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onFavClick();
-              }}
-            >
+            <a href="#" onClick={(e) => { e.preventDefault(); onFavClick(); }}>
               <FaHeart /> Favourites ({favCount})
             </a>
           </ul>
           <ul>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onCartClick();
-              }}
-            >
+            <a href="#" onClick={(e) => { e.preventDefault(); onCartClick(); }}>
               <FaShoppingCart /> Cart ({cartCount})
             </a>
           </ul>
-
-          {/* User dropdown */}
           <ul className="user-icon" ref={dropdownRef}>
             <a
               href="#"
@@ -125,7 +112,6 @@ const Header = ({
             >
               <FaUser /> {user ? user.name : "Guest"}
             </a>
-
             {dropdownOpen && (
               <div className="dropdown-menu">
                 <button onClick={handleLogout}>Logout</button>
@@ -133,6 +119,33 @@ const Header = ({
             )}
           </ul>
         </nav>
+
+        {/* 🔹 Mobile Fullscreen Menu */}
+        {menuOpen && (
+          <div className="mobile-menu">
+            <button className="close-btn" onClick={() => setMenuOpen(false)}>
+              <FaTimes />
+            </button>
+            <ul><a href="#"><FaHome /> Home</a></ul>
+            <ul><a href="#"><FaStar /> Best Selling</a></ul>
+            <ul>
+              <a href="#" onClick={(e) => { e.preventDefault(); onFavClick(); setMenuOpen(false); }}>
+                <FaHeart /> Favourites ({favCount})
+              </a>
+            </ul>
+            <ul>
+              <a href="#" onClick={(e) => { e.preventDefault(); onCartClick(); setMenuOpen(false); }}>
+                <FaShoppingCart /> Cart ({cartCount})
+              </a>
+            </ul>
+            <ul>
+              <a href="#"><FaUser /> {user ? user.name : "Guest"}</a>
+            </ul>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        )}
       </header>
     </div>
   );
