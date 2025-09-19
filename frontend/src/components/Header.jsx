@@ -19,10 +19,12 @@ const Header = ({
   onCartClick,
   onFavClick,
   setUser,
+  onSearch, // ✅ pass search handler from App.jsx
 }) => {
   const [showFull, setShowFull] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // ✅ search state
   const dropdownRef = useRef();
 
   // Animate logo
@@ -45,11 +47,7 @@ const Header = ({
 
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
   const handleLogout = () => {
@@ -57,6 +55,11 @@ const Header = ({
     localStorage.removeItem("user");
     setIsAuthenticated(false);
     if (setUser) setUser(null);
+  };
+
+  // ✅ handle search
+  const handleSearch = () => {
+    if (onSearch) onSearch(searchTerm);
   };
 
   return (
@@ -75,29 +78,56 @@ const Header = ({
 
         {/* Search */}
         <div className="search-box">
-          <input className="Search-bar" type="search" placeholder="Search" />
-          <FaSearch className="search-icon" />
+          <input
+            className="Search-bar"
+            type="search"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()} // press Enter
+          />
+          <FaSearch
+            className="search-icon"
+            onClick={handleSearch} // click search icon
+          />
         </div>
 
         {/* 🔹 Hamburger (mobile only) */}
-        <button
-          className="menu-toggle"
-          onClick={() => setMenuOpen(true)}
-        >
+        <button className="menu-toggle" onClick={() => setMenuOpen(true)}>
           <FaBars />
         </button>
 
         {/* 🔹 Desktop Nav */}
         <nav className="desktop-nav">
-          <ul><a href="#"><FaHome /> Home</a></ul>
-          <ul><a href="#"><FaStar /> Best Selling</a></ul>
           <ul>
-            <a href="#" onClick={(e) => { e.preventDefault(); onFavClick(); }}>
+            <a href="#">
+              <FaHome /> Home
+            </a>
+          </ul>
+          <ul>
+            <a href="#">
+              <FaStar /> Best Selling
+            </a>
+          </ul>
+          <ul>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onFavClick();
+              }}
+            >
               <FaHeart /> Favourites ({favCount})
             </a>
           </ul>
           <ul>
-            <a href="#" onClick={(e) => { e.preventDefault(); onCartClick(); }}>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onCartClick();
+              }}
+            >
               <FaShoppingCart /> Cart ({cartCount})
             </a>
           </ul>
@@ -126,20 +156,44 @@ const Header = ({
             <button className="close-btn" onClick={() => setMenuOpen(false)}>
               <FaTimes />
             </button>
-            <ul><a href="#"><FaHome /> Home</a></ul>
-            <ul><a href="#"><FaStar /> Best Selling</a></ul>
             <ul>
-              <a href="#" onClick={(e) => { e.preventDefault(); onFavClick(); setMenuOpen(false); }}>
+              <a href="#">
+                <FaHome /> Home
+              </a>
+            </ul>
+            <ul>
+              <a href="#">
+                <FaStar /> Best Selling
+              </a>
+            </ul>
+            <ul>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onFavClick();
+                  setMenuOpen(false);
+                }}
+              >
                 <FaHeart /> Favourites ({favCount})
               </a>
             </ul>
             <ul>
-              <a href="#" onClick={(e) => { e.preventDefault(); onCartClick(); setMenuOpen(false); }}>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onCartClick();
+                  setMenuOpen(false);
+                }}
+              >
                 <FaShoppingCart /> Cart ({cartCount})
               </a>
             </ul>
             <ul>
-              <a href="#"><FaUser /> {user ? user.name : "Guest"}</a>
+              <a href="#">
+                <FaUser /> {user ? user.name : "Guest"}
+              </a>
             </ul>
             <button className="logout-btn" onClick={handleLogout}>
               Logout
