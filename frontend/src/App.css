@@ -17,6 +17,65 @@ body {
   /* width: 100%; */
   
 }
+/* -------------Auth */
+/* 🔹 Auth Page Styles */
+
+.auth-container {
+  width: 25rem;
+  position: relative;
+  left: 140%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  background: #fff;
+}
+
+.auth-heading {
+  margin-bottom: 20px;
+  font-family: "Bungee", sans-serif;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.auth-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: dodgerblue;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  background: #0074e4;
+}
+
+.auth-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.auth-toggle {
+  cursor: pointer;
+  color: blue;
+  margin-top: 15px;
+}
+
+
 
 /* ---------------Header */
 
@@ -899,7 +958,7 @@ hr{
 
   .lapy {
     padding: 0.5rem;
-    height: 17vh;
+    height: 18vh;
     
   }
 
@@ -947,8 +1006,9 @@ hr{
 
   /* Product Details Modal */
   .modal {
-    width: 90%;
+    width: 80%;
     padding: 15px;
+    margin-right: 4rem;
   }
 
   .modal img {
