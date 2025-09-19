@@ -22,8 +22,7 @@ body {
 
 .auth-container {
   width: 25rem;
-  position: relative;
-  left: 140%;
+  margin-left: 35rem ;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -867,7 +866,7 @@ hr{
     /* overflow: hidden; */
   }
   .auth-container{
-    margin-right: -30rem;
+    margin: 0;
     width: 23rem;
     
   }
