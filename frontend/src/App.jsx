@@ -29,7 +29,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]); // ✅ new state
   const [allProducts, setAllProducts] = useState([]); // ✅ to store all products
 
-  const API = "http://localhost:5000"; // replace with your backend (deploy link in prod)
+  const API = "https://usha-store.onrender.com"; // replace with your backend (deploy link in prod)
 
   // This will run when the app first loads OR when isAuthenticated changes
   useEffect(() => {
