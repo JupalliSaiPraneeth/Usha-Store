@@ -866,12 +866,12 @@ hr{
   body{
     /* overflow: hidden; */
   }
-    .auth-container{
+  .auth-container{
     margin-right: -30rem;
     width: 23rem;
     
   }
-
+  
   /* Header */
   header {
     flex-direction: column;
